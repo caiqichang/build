@@ -10,7 +10,7 @@ jobs:
       - uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
         with:
           arch: x64
-          sdk: 10.0.10240.0
+          sdk: 10.0.19041.0
       - uses: msys2/setup-msys2@v2
       - name: copy source code
         run: |
