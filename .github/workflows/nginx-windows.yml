@@ -8,6 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2.7.0
       - uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
+        with: 
+          arch: x64
       - uses: msys2/setup-msys2@v2
       - name: run
         run: |
