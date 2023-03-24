@@ -7,9 +7,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2.7.0
-      - uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
-        with: 
-          arch: x64
+      - uses: ilammy/msvc-dev-cmd@v1.12.1
       - uses: msys2/setup-msys2@v2
       - name: run
         run: |
