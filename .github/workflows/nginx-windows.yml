@@ -33,6 +33,6 @@ jobs:
           cd ../
       - uses: actions/upload-artifact@v3.1.2
         with:
-          name: nginx-windows.zip
+          name: nginx-windows
           path: output/*
       
