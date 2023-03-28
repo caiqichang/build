@@ -1,0 +1,3 @@
+name: build chromium for windows
+
+on: workflow_dispatch
