@@ -13,6 +13,7 @@ jobs:
       - uses: msys2/setup-msys2@v2
       - name: copy source code
         run: |
+          C:
           git clone --depth=1 https://github.com/nginx/nginx
           cd nginx
           mkdir objs/lib
@@ -20,13 +21,14 @@ jobs:
           git clone --branch=pcre2-10.39 --depth=1 https://github.com/PCRE2Project/pcre2
           git clone --branch=v1.2.11 --depth=1 https://github.com/madler/zlib
           git clone --branch=OpenSSL_1_1_1m --depth=1 https://github.com/openssl/openssl
-          cd ../../
       - shell: msys2 {0}
         run: |
-          cd ../../build/build/nginx
+          C:
+          cd nginx
           ./auto/configure --with-cc=cl --with-debug --prefix= --conf-path=conf/nginx.conf --pid-path=logs/nginx.pid --http-log-path=logs/access.log --error-log-path=logs/error.log --sbin-path=nginx.exe --http-client-body-temp-path=temp/client_body_temp --http-proxy-temp-path=temp/proxy_temp --http-fastcgi-temp-path=temp/fastcgi_temp --http-scgi-temp-path=temp/scgi_temp --http-uwsgi-temp-path=temp/uwsgi_temp --with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre2 --with-zlib=objs/lib/zlib --with-openssl=objs/lib/openssl --with-openssl-opt=no-asm --with-http_ssl_module --with-stream --with-stream_ssl_module --with-stream_ssl_preread_module 
       - name: make and package
         run: |
+          C:
           cd nginx
           nmake
           xcopy objs\\nginx.exe to-pack\\
