@@ -41,5 +41,5 @@ jobs:
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: nginx-windows
-          path: nginx/nginx-windows.tar
+          path: C:/nginx/nginx-windows.tar
       
