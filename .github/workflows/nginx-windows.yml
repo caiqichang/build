@@ -30,8 +30,6 @@ jobs:
           c:
           cd nginx
           nmake
-      - name: process output files
-      - run: |
           xcopy objs\\nginx.exe to-pack\\
           xcopy /e docs\\text to-pack\\docs\\
           xcopy objs\\pcre2\\LICENSE to-pack\\docs\\PCRE.LICENSE
@@ -42,8 +40,6 @@ jobs:
           xcopy /e docs\\html to-pack\\html\\
           mkdir to-pack\\logs
           mkdir to-pack\\temp
-      - name: package
-      - run: |
           ren to-pack nginx-windows
           tar -c -f nginx-windows.tar nginx-windows
       - uses: actions/upload-artifact@v3.1.2
