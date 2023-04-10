@@ -46,7 +46,6 @@ jobs:
       - run: |
           ren to-pack nginx-windows
           tar -c -f nginx-windows.tar nginx-windows
-      - name: upload
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: nginx-windows
