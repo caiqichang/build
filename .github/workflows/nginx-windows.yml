@@ -6,13 +6,10 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: setup git
       - uses: actions/checkout@v3.5.0
-      - name: setup microsoft visual c
       - uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
         with:
           arch: x64
-      - name: setup msys
       - uses: msys2/setup-msys2@v2
       - name: clone source code
         run: |
@@ -24,7 +21,6 @@ jobs:
           git clone --branch=pcre2-10.39 --depth=1 https://github.com/PCRE2Project/pcre2
           git clone --branch=v1.2.11 --depth=1 https://github.com/madler/zlib
           git clone --branch=OpenSSL_1_1_1m --depth=1 https://github.com/openssl/openssl
-      - name: configurate
       - shell: msys2 {0}
         run: |
           cd /c/nginx
