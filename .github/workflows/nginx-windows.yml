@@ -6,12 +6,19 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+    
+      - name: setup git
       - uses: actions/checkout@v3.5.0
+      
+      - name: setup microsoft visual c
       - uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
         with:
           arch: x64
+          
+      - name: setup msys
       - uses: msys2/setup-msys2@v2
-      - name: copy source code
+      
+      - name: clone source code
         run: |
           c:
           git clone --depth=1 https://github.com/nginx/nginx
@@ -21,23 +28,38 @@ jobs:
           git clone --branch=pcre2-10.39 --depth=1 https://github.com/PCRE2Project/pcre2
           git clone --branch=v1.2.11 --depth=1 https://github.com/madler/zlib
           git clone --branch=OpenSSL_1_1_1m --depth=1 https://github.com/openssl/openssl
+          
+      - name: configurate
       - shell: msys2 {0}
         run: |
           cd /c/nginx
           ./auto/configure --with-cc=cl --with-debug --prefix= --conf-path=conf/nginx.conf --pid-path=logs/nginx.pid --http-log-path=logs/access.log --error-log-path=logs/error.log --sbin-path=nginx.exe --http-client-body-temp-path=temp/client_body_temp --http-proxy-temp-path=temp/proxy_temp --http-fastcgi-temp-path=temp/fastcgi_temp --http-scgi-temp-path=temp/scgi_temp --http-uwsgi-temp-path=temp/uwsgi_temp --with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre2 --with-zlib=objs/lib/zlib --with-openssl=objs/lib/openssl --with-openssl-opt=no-asm --with-http_ssl_module --with-stream --with-stream_ssl_module --with-stream_ssl_preread_module 
-      - name: make and package
+      
+      - name: make
         run: |
           c:
           cd nginx
           nmake
+      
+      - name: process output files
+      - run: |
           xcopy objs\\nginx.exe to-pack\\
+          xcopy /e docs\\text to-pack\\docs\\
+          xcopy objs\\pcre2\\LICENSE to-pack\\docs\\PCRE.LICENSE
+          xcopy objs\\zlib\\LICENSE to-pack\\docs\\zlib.LICENSE
+          xcopy objs\\openssl\\LICENSE to-pack\\docs\\OpenSSL.LICENSE
           xcopy /e conf to-pack\\conf\\
           xcopy /e contrib to-pack\\contrib\\
           xcopy /e docs\\html to-pack\\html\\
           mkdir to-pack\\logs
           mkdir to-pack\\temp
+          
+      - name: package
+      - run: |
           ren to-pack nginx-windows
           tar -c -f nginx-windows.tar nginx-windows
+          
+      - name: upload
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: nginx-windows
