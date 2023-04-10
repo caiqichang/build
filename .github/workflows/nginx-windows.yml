@@ -49,7 +49,7 @@ jobs:
           xcopy /e docs\\text to-pack\\docs\\
           echo f | xcopy objs\\lib\\pcre2\\LICENCE to-pack\\docs\\PCRE.LICENCE
           echo f | xcopy objs\\lib\\zlib\\LICENSE to-pack\\docs\\zlib.LICENSE
-          echo f | xcopy objs\\lib\\openssl\\LICENSE.txt to-pack\\docs\\OpenSSL.LICENSE
+          echo f | xcopy objs\\lib\\openssl\\LICENSE to-pack\\docs\\OpenSSL.LICENSE
           xcopy /e conf to-pack\\conf\\
           xcopy /e contrib to-pack\\contrib\\
           xcopy /e docs\\html to-pack\\html\\
@@ -67,4 +67,4 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: nginx-windows
-          path: c:/nginx/nginx-windows.tar
+          path: c:/nginx/*
