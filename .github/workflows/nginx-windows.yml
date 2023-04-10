@@ -43,6 +43,8 @@ jobs:
           
       - name: process output files
         run: |
+          c:
+          cd nginx
           xcopy objs\\nginx.exe to-pack\\
           xcopy /e docs\\text to-pack\\docs\\
           xcopy objs\\pcre2\\LICENSE to-pack\\docs\\PCRE.LICENSE
@@ -56,6 +58,8 @@ jobs:
           
       - name: package
         run: |
+          c:
+          cd nginx
           ren to-pack nginx-windows
           tar -c -f nginx-windows.tar nginx-windows
       
