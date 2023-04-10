@@ -6,8 +6,12 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3.5.0
-      - uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
+    
+      - name: setup git
+        uses: actions/checkout@v3.5.0
+        
+      - name: setup microsoft visual c
+        uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
         with:
           arch: x64
       - uses: msys2/setup-msys2@v2
