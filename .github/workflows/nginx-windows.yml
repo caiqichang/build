@@ -47,9 +47,9 @@ jobs:
           cd nginx
           xcopy objs\\nginx.exe to-pack\\
           xcopy /e docs\\text to-pack\\docs\\
-          xcopy objs\\pcre2\\LICENSE to-pack\\docs\\PCRE.LICENSE
-          xcopy objs\\zlib\\LICENSE to-pack\\docs\\zlib.LICENSE
-          xcopy objs\\openssl\\LICENSE to-pack\\docs\\OpenSSL.LICENSE
+          xcopy objs\\lib\\pcre2\\LICENSE to-pack\\docs\\PCRE.LICENSE
+          xcopy objs\\lib\\zlib\\LICENSE to-pack\\docs\\zlib.LICENSE
+          xcopy objs\\lib\\openssl\\LICENSE to-pack\\docs\\OpenSSL.LICENSE
           xcopy /e conf to-pack\\conf\\
           xcopy /e contrib to-pack\\contrib\\
           xcopy /e docs\\html to-pack\\html\\
