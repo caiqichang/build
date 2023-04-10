@@ -14,7 +14,10 @@ jobs:
         uses: TheMrMilchmann/setup-msvc-dev@v2.0.0
         with:
           arch: x64
-      - uses: msys2/setup-msys2@v2
+          
+      - name: setup msys2
+        uses: msys2/setup-msys2@v2
+      
       - name: clone source code
         run: |
           c:
@@ -25,10 +28,13 @@ jobs:
           git clone --branch=pcre2-10.39 --depth=1 https://github.com/PCRE2Project/pcre2
           git clone --branch=v1.2.11 --depth=1 https://github.com/madler/zlib
           git clone --branch=OpenSSL_1_1_1m --depth=1 https://github.com/openssl/openssl
-      - shell: msys2 {0}
+          
+      - name: configure
+        shell: msys2 {0}
         run: |
           cd /c/nginx
           ./auto/configure --with-cc=cl --with-debug --prefix= --conf-path=conf/nginx.conf --pid-path=logs/nginx.pid --http-log-path=logs/access.log --error-log-path=logs/error.log --sbin-path=nginx.exe --http-client-body-temp-path=temp/client_body_temp --http-proxy-temp-path=temp/proxy_temp --http-fastcgi-temp-path=temp/fastcgi_temp --http-scgi-temp-path=temp/scgi_temp --http-uwsgi-temp-path=temp/uwsgi_temp --with-cc-opt=-DFD_SETSIZE=1024 --with-pcre=objs/lib/pcre2 --with-zlib=objs/lib/zlib --with-openssl=objs/lib/openssl --with-openssl-opt=no-asm --with-http_ssl_module --with-stream --with-stream_ssl_module --with-stream_ssl_preread_module
+      
       - name: make
         run: |
           c:
@@ -47,7 +53,9 @@ jobs:
           # package
           ren to-pack nginx-windows
           tar -c -f nginx-windows.tar nginx-windows
-      - uses: actions/upload-artifact@v3.1.2
+      
+      - name: upload
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: nginx-windows
           path: c:/nginx/nginx-windows.tar
