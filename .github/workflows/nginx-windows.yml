@@ -48,7 +48,7 @@ jobs:
           xcopy objs\\nginx.exe to-pack\\
           xcopy /e docs\\text to-pack\\docs\\
           echo f | xcopy objs\\lib\\pcre2\\LICENCE to-pack\\docs\\PCRE.LICENCE
-          echo f | xcopy objs\\lib\\zlib\\LICENSE to-pack\\docs\\zlib.LICENSE
+          echo f | xcopy objs\\lib\\zlib\\README to-pack\\docs\\zlib.LICENSE
           echo f | xcopy objs\\lib\\openssl\\LICENSE to-pack\\docs\\OpenSSL.LICENSE
           xcopy /e conf to-pack\\conf\\
           xcopy /e contrib to-pack\\contrib\\
