@@ -21,7 +21,7 @@ jobs:
       - name: clone source code
         run: |
           c:
-          git clone --depth=1 https://github.com/nginx/nginx
+          git clone --branch=branches/stable-1.24 --depth=1 https://github.com/nginx/nginx
           cd nginx
           mkdir objs/lib
           cd objs/lib
